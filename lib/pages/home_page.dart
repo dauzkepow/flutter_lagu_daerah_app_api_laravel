@@ -3,6 +3,8 @@
 //home_page.dart kelas = HomePage
 //statefull widget = widget yang punya state
 
+//Ambil data Manual di List Models
+
 import 'package:flutter/material.dart';
 import 'package:flutter_lagu_daerah_app/data/models/province.dart';
 import 'package:flutter_lagu_daerah_app/pages/detail_pages.dart';

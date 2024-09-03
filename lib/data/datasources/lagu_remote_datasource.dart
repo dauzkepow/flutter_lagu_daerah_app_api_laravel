@@ -14,4 +14,15 @@ class LaguRemoteDatasource {
       throw Exception('Failed to load data');
     }
   }
+
+  //versi pagination
+  Future<LaguResponseModel> getLaguDaerahPages(int page) async {
+    final response = await http
+        .get(Uri.parse('http://192.168.200.3:8000/api/lagudaerah?page=$page'));
+    if (response.statusCode == 200) {
+      return LaguResponseModel.fromJson(response.body);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
 }

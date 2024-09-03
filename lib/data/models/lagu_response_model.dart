@@ -1,3 +1,22 @@
+/*
+== buat response models ==
+buka https://quicktype.io/
+pilih bahasa dart
+paste
+
+pilih :
+null safety
+Pul Encoder  decoder in Class
+make all properties requirement
+make all properties final
+
+make all properties optional
+
+other :
+Use method name fromMap() & toMap()
+
+*/
+
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -73,7 +92,7 @@ class Data {
         nextPageUrl: json["next_page_url"],
         path: json["path"],
         perPage: json["per_page"],
-        prevPageUrl: json["prev_page_url"],
+        prevPageUrl: json["prev_page_url"] ?? '', //ada data null
         to: json["to"],
         total: json["total"],
       );
@@ -151,7 +170,7 @@ class Link {
   String toJson() => json.encode(toMap());
 
   factory Link.fromMap(Map<String, dynamic> json) => Link(
-        url: json["url"],
+        url: json["url"] ?? '', //ada data null
         label: json["label"],
         active: json["active"],
       );
