@@ -8,6 +8,8 @@ import 'package:flutter_lagu_daerah_app/data/models/lagu_response_model.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class BeerListView extends StatefulWidget {
+  const BeerListView({super.key});
+
   @override
   _BeerListViewState createState() => _BeerListViewState();
 }
@@ -17,6 +19,11 @@ class _BeerListViewState extends State<BeerListView> {
 
   final PagingController<int, Lagu> _pagingController =
       PagingController(firstPageKey: 1);
+
+  //edit
+  final TextEditingController judulController = TextEditingController();
+  final TextEditingController laguController = TextEditingController();
+  final TextEditingController daerahController = TextEditingController();
 
   @override
   void initState() {
@@ -69,6 +76,72 @@ class _BeerListViewState extends State<BeerListView> {
             ),
           );
         }),
+      ),
+      //floating
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //Navigator.pushNamed(context, '/add');
+          //show dialog add
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Add New Lagu'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Judul',
+                      ),
+                      controller: judulController,
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Lagu',
+                      ),
+                      maxLines: 6,
+                      controller: laguController,
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Daerah',
+                      ),
+                      controller: daerahController,
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      LaguRemoteDatasource().addLaguDaerah(
+                        judulController.text,
+                        laguController.text,
+                        daerahController.text,
+                      );
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Berhasil ditambahkan"),
+                      ));
+                    },
+                    child: const Text('Add'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.blueGrey,
       ),
     );
   }
